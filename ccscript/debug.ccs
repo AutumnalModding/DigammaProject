@@ -1,0 +1,33 @@
+debug:
+    Who up modding they garden
+    `dmds`
+
+    `setdi 0`
+    `setda test`
+    `setdt 8 53 6F 20 74 72 75 65 2E` ; So true.
+
+    `setdi 1`
+    `setda wrong`
+    `setdt 5 57 68 61 74 3F` ; What?
+
+    `setdi 0`
+    `emds`
+    `wait`
+    `pdtr $rax $eax`
+    `jump $eax`
+
+test:
+    `newline`
+    Good job, `varfill 00 10`ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ!
+    `halt`
+
+wrong:
+    `newline`
+    [extremely loud incorrect buzzer]
+    `newline`
+    Let's try that again.
+    `newline`
+    `jump debug`
+    `halt`
+
+

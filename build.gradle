@@ -1,0 +1,98 @@
+import net.fabricmc.loom.task.prod.ClientProductionRunTask
+import net.fabricmc.loom.task.prod.ServerProductionRunTask
+
+plugins {
+	id 'net.fabricmc.fabric-loom-remap' version '1.17-SNAPSHOT'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+repositories {
+	maven {
+		url = "https://repo.codemc.io/repository/relativitymc/"
+	}
+
+	maven {
+		name = "Ladysnake Mods"
+		url = 'https://maven.ladysnake.org/releases'
+	}
+}
+
+dependencies {
+	mappings "org.relativitymc:modern-yarn:26.1.2+build.1:v2"
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	implementation include("gdn.hypercube:epsilon:1.0-SNAPSHOT")
+
+	implementation 'net.bytebuddy:byte-buddy:1.14.10'
+	implementation "de.florianreuth:asmfabricloader:2.2.0"
+	implementation 'net.bytebuddy:byte-buddy-agent:1.14.10'
+	implementation include('io.github.classgraph:classgraph:4.8.177')
+
+	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+	modImplementation include("org.ladysnake.cardinal-components-api:cardinal-components-base:8.0.0")
+	modImplementation include("org.ladysnake.cardinal-components-api:cardinal-components-entity:8.0.0")
+}
+
+processResources {
+	def version = project.version
+	inputs.property "version", version
+
+	filesMatching("fabric.mod.json") {
+		expand "version": version
+	}
+}
+
+loom {
+	useIntermediateMappings = true
+	intermediaryUrl = 'https://repo.codemc.io/repository/relativitymc/org/relativitymc/intermediary/%1$s/intermediary-%1$s-v2.jar'
+
+	accessWidenerPath = file("src/main/resources/digamma.classtweaker")
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 25
+}
+
+java {
+	withSourcesJar()
+
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
+
+}
+
+tasks.register("prodServer", ServerProductionRunTask) {
+	runDir = file("run")
+	javaLauncher = javaToolchains.launcherFor {
+		languageVersion = JavaLanguageVersion.of(25)
+	}
+}
+
+tasks.register("prodClient", ClientProductionRunTask) {}
+
+
+jar {
+	def projectName = project.name
+	inputs.property "projectName", projectName
+
+	from("LICENSE") {
+		rename { "${it}_$projectName"}
+	}
+}
+
+tasks.register('ccscript', Exec) {
+	group = 'build'
+
+	def epsilon = gradle.includedBuild('EpsilonEngine')
+	dependsOn epsilon.task(':jar')
+
+	def target = file("${epsilon.projectDir}/build/libs/epsilon-1.0-SNAPSHOT.jar")
+
+	commandLine 'java', '-jar', target.absolutePath, '--output', 'src/main/resources/data/digamma/ccscript.bin'
+}
+
+tasks.named('compileJava') {
+	dependsOn 'ccscript'
+}

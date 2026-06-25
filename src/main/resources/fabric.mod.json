@@ -1,0 +1,51 @@
+{
+	"schemaVersion": 1,
+	"id": "digamma",
+	"version": "${version}",
+	"name": "Digamma Project",
+	"description": "ϝ",
+	"authors": [
+		"LilyflowerFDL"
+	],
+	"contact": {
+		"homepage": "https://hypercube.gdn/digamma",
+		"sources": "https://github.com/AutumnalModding/DigammaProject"
+	},
+	"license": "GPLv3",
+	"icon": "assets/digamma/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"afl:prePrePreLaunch": [
+			"gdn.hypercube.solaris.core.SolarisBootstrap"
+		],
+		"preLaunch": [
+			"gdn.hypercube.solaris.core.SolarisBootstrap",
+			"gdn.hypercube.solaris.generator.resource.ResourcePackGenerator"
+		],
+		"main": [
+			"gdn.hypercube.digamma.init.DigammaProjectLoader",
+			"gdn.hypercube.solaris.generator.content.RegistryInitializer"
+		],
+		"client": [
+			"gdn.hypercube.digamma.delta.DeltaProtocolBootSequence"
+		],
+		"cardinal-components": [
+			"gdn.hypercube.digamma.init.DigammaProjectLoader"
+		]
+	},
+	"mixins": [
+		"digamma.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~26.1.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	},
+	"accessWidener": "digamma.classtweaker",
+	"custom": {
+		"cardinal-components": [
+			"digamma:flags"
+		]
+	}
+}

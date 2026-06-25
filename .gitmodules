@@ -1,0 +1,3 @@
+[submodule "Epsilon"]
+	path = EpsilonEngine
+	url = git@github.com:AutumnalModding/Epsilon.git

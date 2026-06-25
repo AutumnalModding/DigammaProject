@@ -1,0 +1,5 @@
+emds        [00 01] ; Enable Menu Draw State
+dmds        [00 02] ; Disable Menu Draw State
+varfill     [00 03 short byte]
+setflag     [00 04 short byte]
+getflag     [00 05 short $byte $byte]
