@@ -16,7 +16,7 @@ public class DeltaProtocolAudioEngine {
     }
 
     public static class SoundInstance extends AbstractSoundInstance implements PlatformSoundInstance {
-        protected SoundInstance(Identifier sound) {
+        public SoundInstance(Identifier sound) {
             super(sound, SoundCategory.MASTER, RNG); // TODO: custom sound category
         }
 

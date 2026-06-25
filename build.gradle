@@ -85,12 +85,7 @@ jar {
 tasks.register('ccscript', Exec) {
 	group = 'build'
 
-	def epsilon = gradle.includedBuild('EpsilonEngine')
-	dependsOn epsilon.task(':jar')
-
-	def target = file("${epsilon.projectDir}/build/libs/epsilon-1.0-SNAPSHOT.jar")
-
-	commandLine 'java', '-jar', target.absolutePath, '--output', 'src/main/resources/data/digamma/ccscript.bin'
+	commandLine 'java', '-jar', "Epsilon/build/libs/epsilon-1.0-SNAPSHOT.jar", '--output', 'src/main/resources/data/digamma/ccscript.bin'
 }
 
 tasks.named('compileJava') {

@@ -12,4 +12,4 @@ pluginManagement {
 // Should match your modid
 rootProject.name = 'digamma'
 
-includeBuild('EpsilonEngine')
+includeBuild('Epsilon')

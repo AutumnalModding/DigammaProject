@@ -1,5 +1,12 @@
 debug:
+    `colourize 0 3 FF00FF00`
+    `colourize 4 2 FFFF0000`
+    `colourize 7 7 FFFF00FF`
+    `colourize 0F 4 FF00FFFF`
+    `colourize 14 6 FFFFFF00`
     Who up modding they garden
+    `newline`
+    Colours are existing, wowee.
     `dmds`
 
     `setdi 0`
