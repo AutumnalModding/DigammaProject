@@ -1,6 +1,6 @@
 package gdn.hypercube.digamma.patch.mixin;
 
-import gdn.hypercube.digamma.delta.DeltaProtocolBootSequence;
+import gdn.hypercube.digamma.delta.core.DeltaProtocolBootSequence;
 import gdn.hypercube.epsilon.core.util.Pair;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.window.Window;

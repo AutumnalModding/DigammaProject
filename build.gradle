@@ -17,12 +17,18 @@ repositories {
 		name = "Ladysnake Mods"
 		url = 'https://maven.ladysnake.org/releases'
 	}
+
+	maven {
+		name = "Nucleoid"
+		url = 'https://maven.nucleoid.xyz/releases'
+	}
 }
 
 dependencies {
 	mappings "org.relativitymc:modern-yarn:26.1.2+build.1:v2"
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	implementation include("gdn.hypercube:epsilon:1.0-SNAPSHOT")
+	implementation include("gdn.hypercube:solaris:1.0.0")
 
 	implementation 'net.bytebuddy:byte-buddy:1.14.10'
 	implementation "de.florianreuth:asmfabricloader:2.2.0"
@@ -33,6 +39,7 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 	modImplementation include("org.ladysnake.cardinal-components-api:cardinal-components-base:8.0.0")
 	modImplementation include("org.ladysnake.cardinal-components-api:cardinal-components-entity:8.0.0")
+	modImplementation include("eu.pb4:trinkets:4.0.0-beta.3+26.1")
 }
 
 processResources {
@@ -85,7 +92,7 @@ jar {
 tasks.register('ccscript', Exec) {
 	group = 'build'
 
-	commandLine 'java', '-jar', "Epsilon/build/libs/epsilon-1.0-SNAPSHOT.jar", '--output', 'src/main/resources/data/digamma/ccscript.bin'
+	commandLine 'java', '-jar', "submodules/Epsilon/build/libs/epsilon-1.0-SNAPSHOT.jar", '--output', 'src/main/resources/data/digamma/ccscript.bin'
 }
 
 tasks.named('compileJava') {

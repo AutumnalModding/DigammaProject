@@ -1,4 +1,4 @@
-package gdn.hypercube.digamma.delta;
+package gdn.hypercube.digamma.delta.util;
 
 import gdn.hypercube.epsilon.core.util.Pair;
 import java.util.List;

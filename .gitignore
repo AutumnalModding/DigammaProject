@@ -4,6 +4,7 @@ build/
 .idea/
 classes/
 .gradle/
+submodules/
 
 *.iml
 *.ipr

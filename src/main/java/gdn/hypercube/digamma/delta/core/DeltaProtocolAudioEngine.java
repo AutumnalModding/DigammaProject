@@ -1,4 +1,4 @@
-package gdn.hypercube.digamma.delta;
+package gdn.hypercube.digamma.delta.core;
 
 import gdn.hypercube.epsilon.core.handler.PlatformSoundInstance;
 import net.minecraft.client.MinecraftClient;

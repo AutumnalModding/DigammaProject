@@ -11,6 +11,5 @@ public class PacketHandler {
         PayloadTypeRegistry.clientboundPlay().register(S00LoadEngine.IDENT, S00LoadEngine.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(S01JumpAddress.IDENT, S01JumpAddress.CODEC);
         PayloadTypeRegistry.clientboundPlay().register(S02JumpToLabel.IDENT, S02JumpToLabel.CODEC);
-        PayloadTypeRegistry.clientboundPlay().register(S03ChangeEngineState.IDENT, S03ChangeEngineState.CODEC);
     }
 }

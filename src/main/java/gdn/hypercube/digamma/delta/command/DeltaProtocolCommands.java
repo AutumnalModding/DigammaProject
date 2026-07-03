@@ -2,7 +2,7 @@ package gdn.hypercube.digamma.delta.command;
 
 import gdn.hypercube.digamma.component.PlayerEventFlagsComponent;
 import gdn.hypercube.digamma.init.DigammaProjectLoader;
-import gdn.hypercube.digamma.delta.DeltaProtocolBootSequence;
+import gdn.hypercube.digamma.delta.core.DeltaProtocolBootSequence;
 import gdn.hypercube.epsilon.core.util.Argument;
 import gdn.hypercube.epsilon.core.util.EngineCommand;
 import gdn.hypercube.epsilon.core.util.MemoryHelper;
@@ -28,11 +28,15 @@ public class DeltaProtocolCommands {
         PlayerEventFlagsComponent component = DigammaProjectLoader.EVENT_FLAGS.get(DeltaProtocolBootSequence.CLIENT.player);
         boolean active = component.get((char) argv[0].value);
         MemoryHelper.writeByteAt(engine.memory, base, offset, active ? 1 : 0);
-    }, new Argument(Argument.Type.SHORT), new Argument(Argument.Type.BYTE), new Argument(Argument.Type.BYTE));
+    }, new Argument(Argument.Type.INT), new Argument(Argument.Type.BYTE), new Argument(Argument.Type.BYTE));
 
     @SuppressWarnings("DataFlowIssue")
     EngineCommand SetFlag = new EngineCommand(EngineCommand.Type.PLAFORM_SPECIFIC, 0x05, (_, argv) -> {
         PlayerEventFlagsComponent component = DigammaProjectLoader.EVENT_FLAGS.get(DeltaProtocolBootSequence.CLIENT.player);
         component.set((char) argv[0].value, argv[1].value != 0);
-    }, new Argument(Argument.Type.SHORT), new Argument(Argument.Type.BYTE));
+    }, new Argument(Argument.Type.INT), new Argument(Argument.Type.BYTE));
+
+    EngineCommand SetPortrait = new EngineCommand(EngineCommand.Type.PLAFORM_SPECIFIC, 0x06, (_, argv) -> {
+
+    }, new Argument(Argument.Type.BYTE));
 }

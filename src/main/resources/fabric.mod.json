@@ -15,19 +15,14 @@
 	"icon": "assets/digamma/icon.png",
 	"environment": "*",
 	"entrypoints": {
-		"afl:prePrePreLaunch": [
-			"gdn.hypercube.solaris.core.SolarisBootstrap"
-		],
 		"preLaunch": [
-			"gdn.hypercube.solaris.core.SolarisBootstrap",
-			"gdn.hypercube.solaris.generator.resource.ResourcePackGenerator"
+			"gdn.hypercube.digamma.init.SolarisIntegrator"
 		],
 		"main": [
-			"gdn.hypercube.digamma.init.DigammaProjectLoader",
-			"gdn.hypercube.solaris.generator.content.RegistryInitializer"
+			"gdn.hypercube.digamma.init.DigammaProjectLoader"
 		],
 		"client": [
-			"gdn.hypercube.digamma.delta.DeltaProtocolBootSequence"
+          "gdn.hypercube.digamma.delta.core.DeltaProtocolBootSequence"
 		],
 		"cardinal-components": [
 			"gdn.hypercube.digamma.init.DigammaProjectLoader"
@@ -40,7 +35,8 @@
 		"fabricloader": ">=0.19.3",
 		"minecraft": "~26.1.2",
 		"java": ">=25",
-		"fabric-api": "*"
+		"fabric-api": "*",
+		"solaris": "*"
 	},
 	"accessWidener": "digamma.classtweaker",
 	"custom": {

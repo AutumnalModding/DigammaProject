@@ -7,7 +7,7 @@ import net.minecraft.network.packet.CustomPayload;
 import net.minecraft.util.Identifier;
 
 public record S01JumpAddress(int address) implements CustomPayload {
-    public static final CustomPayload.Id<S01JumpAddress> IDENT = new CustomPayload.Id<>(Identifier.of("epsilon", "jmp"));
+    public static final CustomPayload.Id<S01JumpAddress> IDENT = new CustomPayload.Id<>(Identifier.of("epsilon", "s01"));
     public static final PacketCodec<RegistryByteBuf, S01JumpAddress> CODEC = PacketCodec.tuple(PacketCodecs.INTEGER, S01JumpAddress::address, S01JumpAddress::new);
 
     @Override

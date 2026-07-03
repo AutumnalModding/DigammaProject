@@ -1,7 +1,9 @@
-package gdn.hypercube.digamma.delta;
+package gdn.hypercube.digamma.delta.core;
 
 import gdn.hypercube.digamma.delta.command.DeltaProtocolCommands;
 import gdn.hypercube.digamma.delta.input.DeltaProtocolInputConsumer;
+import gdn.hypercube.digamma.delta.util.DeltaProtocolDrawInfo;
+import gdn.hypercube.digamma.delta.util.DeltaProtocolPortrait;
 import gdn.hypercube.digamma.messages.client.PacketHandlerClientside;
 import gdn.hypercube.epsilon.core.EpsilonEngine;
 import gdn.hypercube.epsilon.core.util.Pair;
@@ -28,8 +30,9 @@ public class DeltaProtocolBootSequence implements ClientModInitializer {
     private static final List<DeltaProtocolInputConsumer> keybinds = new ArrayList<>();
     public static final Logger LOGGER = LogManager.getLogger("Digamma Project Delta Protocol");
 
+    public static DeltaProtocolPortrait PORTRAIT = DeltaProtocolPortrait.EMPTY;
     protected static Map<Integer, DeltaProtocolDrawInfo> DPDI = new TreeMap<>();
-    public static boolean DRAW_MAIN = true;
+    public static boolean DRAW_MAIN = false;
     public static boolean DRAW_MENU = false;
     public static Object LOCATION = null;
 
@@ -83,15 +86,10 @@ public class DeltaProtocolBootSequence implements ClientModInitializer {
 
         ClientTickEvents.START_CLIENT_TICK.register(_ -> {
             if (LOCATION == null) {
-                LOCATION = DrawPosition.CENTER;
+                LOCATION = DrawPosition.TOP_LEFT;
             }
 
             Window window = CLIENT.getWindow();
-            DrawPosition old = (DrawPosition) LOCATION;
-            if (old.x == DrawPosition.CENTER.x && old.y == DrawPosition.CENTER.y) {
-                DrawPosition.CENTER = new DrawPosition((window.getWidth() / 4) - (328 / 2), (window.getHeight() / 4) - (72 / 2));
-                LOCATION = DrawPosition.TOP_LEFT;
-            }
             DrawPosition.CENTER = new DrawPosition((window.getWidth() / 4) - (328 / 2), (window.getHeight() / 4) - (72 / 2));
 
             ENGINE.drawX = ((DrawPosition) LOCATION).x + 77;
@@ -120,6 +118,15 @@ public class DeltaProtocolBootSequence implements ClientModInitializer {
             0F, 0F,
             328, 72, 328, 72
         );
+
+        if (PORTRAIT.get() != null) {
+            context.drawTexture(
+                RenderPipelines.GUI_TEXTURED, PORTRAIT.get(),
+                ((DrawPosition) LOCATION).x + 4, ((DrawPosition) LOCATION).y + 4,
+                0F, 0F,
+                64, 64, 64, 64
+            );
+        }
 
         for (Map.Entry<Integer, DeltaProtocolDrawInfo> entry : DPDI.entrySet()) {
             int line = entry.getKey();

@@ -1,5 +1,6 @@
-package gdn.hypercube.digamma.delta;
+package gdn.hypercube.digamma.delta.core;
 
+import gdn.hypercube.digamma.delta.util.DeltaProtocolDrawInfo;
 import gdn.hypercube.digamma.util.MutableReference;
 import gdn.hypercube.epsilon.core.handler.AbstractPlatform;
 import gdn.hypercube.epsilon.core.handler.PlatformSoundInstance;

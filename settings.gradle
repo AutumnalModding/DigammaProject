@@ -12,4 +12,5 @@ pluginManagement {
 // Should match your modid
 rootProject.name = 'digamma'
 
-includeBuild('Epsilon')
+includeBuild('submodules/Epsilon')
+includeBuild('submodules/Solaris')

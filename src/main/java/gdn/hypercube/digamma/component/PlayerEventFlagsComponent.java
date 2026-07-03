@@ -14,7 +14,7 @@ import org.ladysnake.cca.api.v3.entity.C2SSelfMessagingComponent;
 @SuppressWarnings("UnstableApiUsage")
 public class PlayerEventFlagsComponent implements C2SSelfMessagingComponent, AutoSyncedComponent {
     private final PlayerEntity player;
-    private BitSet flags = new BitSet(Character.MAX_VALUE + 1);
+    private BitSet flags = new BitSet(0xFFFFFF);
 
     public PlayerEventFlagsComponent(PlayerEntity player) {
         this.player = player;

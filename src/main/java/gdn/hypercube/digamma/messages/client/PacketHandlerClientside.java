@@ -1,6 +1,6 @@
 package gdn.hypercube.digamma.messages.client;
 
-import gdn.hypercube.digamma.delta.DeltaProtocolBootSequence;
+import gdn.hypercube.digamma.delta.core.DeltaProtocolBootSequence;
 import gdn.hypercube.digamma.messages.server.PacketHandler;
 import gdn.hypercube.digamma.messages.server.S00LoadEngine;
 import gdn.hypercube.digamma.messages.server.S01JumpAddress;
@@ -28,6 +28,5 @@ public class PacketHandlerClientside {
         });
         ClientPlayNetworking.registerGlobalReceiver(S01JumpAddress.IDENT, (payload, _) -> DeltaProtocolBootSequence.ENGINE.jump(payload.address()));
         ClientPlayNetworking.registerGlobalReceiver(S02JumpToLabel.IDENT, (payload, _) -> DeltaProtocolBootSequence.ENGINE.jump(payload.label()));
-        ClientPlayNetworking.registerGlobalReceiver(S03ChangeEngineState.IDENT, (payload, _) -> DeltaProtocolBootSequence.ENGINE.status = EpsilonEngine.Status.valueOf(payload.state().toUpperCase()));
     }
 }

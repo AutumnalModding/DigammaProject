@@ -1,6 +1,5 @@
 package gdn.hypercube.digamma.delta.input;
 
-import gdn.hypercube.digamma.delta.DeltaProtocolBootSequence;
 import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
