@@ -56,10 +56,17 @@ loom {
 	intermediaryUrl = 'https://repo.codemc.io/repository/relativitymc/org/relativitymc/intermediary/%1$s/intermediary-%1$s-v2.jar'
 
 	accessWidenerPath = file("src/main/resources/digamma.classtweaker")
+	log4jConfigs = files("log4j.xml")
 }
 
 tasks.withType(JavaCompile).configureEach {
 	it.options.release = 25
+}
+
+fabricApi {
+	configureDataGeneration() {
+		client = true
+	}
 }
 
 java {

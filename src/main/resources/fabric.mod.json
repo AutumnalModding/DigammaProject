@@ -26,6 +26,9 @@
 		],
 		"cardinal-components": [
 			"gdn.hypercube.digamma.init.DigammaProjectLoader"
+		],
+		"fabric-datagen": [
+			"gdn.hypercube.digamma.data.DigammaDatagen"
 		]
 	},
 	"mixins": [
