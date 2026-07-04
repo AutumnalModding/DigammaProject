@@ -51,7 +51,6 @@ loom {
 	intermediaryUrl = 'https://repo.codemc.io/repository/relativitymc/org/relativitymc/intermediary/%1$s/intermediary-%1$s-v2.jar'
 
 	accessWidenerPath = file("src/main/resources/digamma.classtweaker")
-	log4jConfigs = files("log4j.xml")
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -94,7 +93,7 @@ jar {
 tasks.register('ccscript', Exec) {
 	group = 'build'
 
-	dependsOn gradle.includedBuild('Epsilon').task(':compileJava')
+	dependsOn gradle.includedBuild('Epsilon').task(':jar')
 	commandLine 'java', '-jar', "submodules/Epsilon/build/libs/epsilon-1.0-SNAPSHOT.jar", '--output', 'src/main/resources/data/digamma/ccscript.bin'
 }
 
