@@ -111,8 +111,7 @@ public class BlockRegistry extends ReflectiveRegistry<Block> {
         tile("wood_large_light", Type.WOOD); tile("wood_large", Type.WOOD); tile("wood_large_red", Type.WOOD);
         tile("wood_light", Type.WOOD); tile("wood_parquet_black", Type.WOOD); tile("wood_parquet_dark", Type.WOOD);
         tile("wood_parquet_light", Type.WOOD); tile("wood_parquet", Type.WOOD); tile("wood_parquet_red", Type.WOOD);
-        tile("wood", Type.WOOD); tile("wood_red", Type.WOOD); tile("wood_tile", Type.WOOD);
+        tile("wood", Type.WOOD); tile("wood_red", Type.WOOD); tile("wood_tile", Type.WOOD); tile("xeno_steel", Type.METAL);
         tile("xeno_flooring", Type.STONE); tile("xeno_maint", Type.STONE); tile("xeno_steel_corner", Type.METAL);
-        tile("xeno_steel", Type.METAL);
     }
 }

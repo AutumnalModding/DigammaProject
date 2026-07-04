@@ -24,11 +24,15 @@ repositories {
 	}
 }
 
+configurations {
+	ccscriptRuntime
+}
+
 dependencies {
 	mappings "org.relativitymc:modern-yarn:26.1.2+build.1:v2"
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	implementation include("gdn.hypercube:epsilon:1.0-SNAPSHOT")
-	implementation include("gdn.hypercube:solaris:1.0.0")
+	ccscriptRuntime implementation(include("gdn.hypercube:epsilon:1.0-SNAPSHOT"))
+	modImplementation include("gdn.hypercube:solaris:1.0.0")
 
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
@@ -90,11 +94,13 @@ jar {
 	}
 }
 
-tasks.register('ccscript', Exec) {
+tasks.register('ccscript', JavaExec) {
 	group = 'build'
-
 	dependsOn gradle.includedBuild('Epsilon').task(':jar')
-	commandLine 'java', '-jar', "submodules/Epsilon/build/libs/epsilon-1.0-SNAPSHOT.jar", '--output', 'src/main/resources/data/digamma/ccscript.bin'
+
+	classpath = configurations.ccscriptRuntime
+	mainClass = 'gdn.hypercube.epsilon.cli.EpsilonCCScriptCompiler'
+	args '--output', 'src/main/resources/data/digamma/ccscript.bin'
 }
 
 tasks.named('compileJava') {
