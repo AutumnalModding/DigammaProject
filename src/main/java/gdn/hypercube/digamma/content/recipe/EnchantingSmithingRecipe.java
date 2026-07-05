@@ -2,7 +2,10 @@ package gdn.hypercube.digamma.content.recipe;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.ItemEnchantmentsComponent;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.SimpleItemStackView;
@@ -14,6 +17,7 @@ import net.minecraft.recipe.display.RecipeDisplay;
 import net.minecraft.recipe.display.SlotDisplay;
 import net.minecraft.recipe.display.SmithingRecipeDisplay;
 import net.minecraft.recipe.input.SmithingRecipeInput;
+import net.minecraft.registry.entry.RegistryEntry;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,31 +32,37 @@ public class EnchantingSmithingRecipe extends AbstractSmithingRecipe {
                     Ingredient.CODEC.optionalFieldOf("addition").forGetter((recipe) -> recipe.addition),
                     SimpleItemStackView.CODEC.fieldOf("result").forGetter((recipe) -> recipe.result)
             ).apply(instance, EnchantingSmithingRecipe::new));
-    public static final PacketCodec<RegistryByteBuf, SmithingTransformRecipe> PACKET_CODEC = PacketCodec.tuple(
+    public static final PacketCodec<RegistryByteBuf, EnchantingSmithingRecipe> PACKET_CODEC = PacketCodec.tuple(
             Settings.PACKET_CODEC, (recipe) -> recipe.settings,
             Ingredient.OPTIONAL_PACKET_CODEC, (recipe) -> recipe.template,
             Ingredient.PACKET_CODEC, (recipe) -> recipe.base,
             Ingredient.OPTIONAL_PACKET_CODEC, (recipe) -> recipe.addition,
             SimpleItemStackView.PACKET_CODEC, (recipe) -> recipe.result,
-            SmithingTransformRecipe::new
+            EnchantingSmithingRecipe::new
     );
 
-    public static final RecipeSerializer<SmithingTransformRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, PACKET_CODEC);
+    public static final RecipeSerializer<EnchantingSmithingRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, PACKET_CODEC);
     private final Optional<Ingredient> template;
     private final Ingredient base;
     private final Optional<Ingredient> addition;
-    private final SimpleItemStackView result;
+    private final Object2IntOpenHashMap<RegistryEntry<Enchantment>> enchantments;
 
-    protected EnchantingSmithingRecipe(Settings settings, Optional<Ingredient> template, Ingredient base, Optional<Ingredient> addition, SimpleItemStackView result) {
+    protected EnchantingSmithingRecipe(Settings settings, Optional<Ingredient> template, Ingredient base, Optional<Ingredient> addition, Object2IntOpenHashMap<RegistryEntry<Enchantment>> enchantments) {
         super(settings);
         this.template = template;
         this.base = base;
         this.addition = addition;
-        this.result = result;
+        this.enchantments = enchantments;
     }
 
     public ItemStack craft(final SmithingRecipeInput input) {
-        return input.base().copy().apply(DataComponentTypes.ENCHANTMENTS, );
+        return craft(input.base());
+    }
+
+    public ItemStack craft(final ItemStack stack) {
+        return stack.copy().apply(DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.builder().build(), component -> {
+            ItemEnchantmentsComponent.Builder builder = new ItemEnchantmentsComponent.Builder(component);
+        });
     }
 
     @Override
