@@ -1,43 +1,42 @@
 package gdn.hypercube.digamma.content.recipe;
 
+import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.item.SimpleItemStackView;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
+import net.minecraft.network.codec.PacketCodecs;
 import net.minecraft.recipe.*;
-import net.minecraft.recipe.crafting.TransmuteRecipe;
-import net.minecraft.recipe.display.RecipeDisplay;
-import net.minecraft.recipe.display.SlotDisplay;
-import net.minecraft.recipe.display.SmithingRecipeDisplay;
 import net.minecraft.recipe.input.SmithingRecipeInput;
 import net.minecraft.registry.entry.RegistryEntry;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
+@SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 public class EnchantingSmithingRecipe extends AbstractSmithingRecipe {
 
+    private static final Codec<Integer> ENCHANTMENT_LEVEL_CODEC = Codec.intRange(1, 255);
     public static final MapCodec<EnchantingSmithingRecipe> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(
                     Settings.CODEC.forGetter((recipe) -> recipe.settings),
                     Ingredient.CODEC.optionalFieldOf("template").forGetter((recipe) -> recipe.template),
                     Ingredient.CODEC.fieldOf("base").forGetter((recipe) -> recipe.base),
                     Ingredient.CODEC.optionalFieldOf("addition").forGetter((recipe) -> recipe.addition),
-                    SimpleItemStackView.CODEC.fieldOf("result").forGetter((recipe) -> recipe.result)
+                    Codec.unboundedMap(Enchantment.ENTRY_CODEC, ENCHANTMENT_LEVEL_CODEC).xmap(Object2IntOpenHashMap::new, Function.identity()).fieldOf("enchantments").forGetter((recipe) -> recipe.enchantments)
             ).apply(instance, EnchantingSmithingRecipe::new));
     public static final PacketCodec<RegistryByteBuf, EnchantingSmithingRecipe> PACKET_CODEC = PacketCodec.tuple(
             Settings.PACKET_CODEC, (recipe) -> recipe.settings,
             Ingredient.OPTIONAL_PACKET_CODEC, (recipe) -> recipe.template,
             Ingredient.PACKET_CODEC, (recipe) -> recipe.base,
             Ingredient.OPTIONAL_PACKET_CODEC, (recipe) -> recipe.addition,
-            SimpleItemStackView.PACKET_CODEC, (recipe) -> recipe.result,
+            PacketCodecs.map(Object2IntOpenHashMap::new, Enchantment.ENTRY_PACKET_CODEC, PacketCodecs.VAR_INT), (recipe) -> recipe.enchantments,
             EnchantingSmithingRecipe::new
     );
 
@@ -60,9 +59,9 @@ public class EnchantingSmithingRecipe extends AbstractSmithingRecipe {
     }
 
     public ItemStack craft(final ItemStack stack) {
-        return stack.copy().apply(DataComponentTypes.ENCHANTMENTS, ItemEnchantmentsComponent.builder().build(), component -> {
-            ItemEnchantmentsComponent.Builder builder = new ItemEnchantmentsComponent.Builder(component);
-        });
+        ItemStack result = stack.copy();
+        EnchantmentHelper.apply(result, builder -> this.enchantments.forEach(builder::add));
+        return result;
     }
 
     @Override
