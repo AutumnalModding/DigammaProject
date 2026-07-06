@@ -1,26 +1,15 @@
 package gdn.hypercube.digamma.init;
 
 import gdn.hypercube.digamma.component.PlayerEventFlagsComponent;
-import gdn.hypercube.solaris.generator.content.ReflectiveRegistry;
 import gdn.hypercube.digamma.messages.server.S00LoadEngine;
 import gdn.hypercube.digamma.messages.server.PacketHandler;
 import gdn.hypercube.digamma.util.DigammaDebugger;
-import gdn.hypercube.solaris.core.ClasspathScanning;
-import gdn.hypercube.solaris.core.SolarisBootstrap;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Constructor;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import net.fabricmc.api.ModInitializer;
 
-import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.text.Text;
@@ -66,7 +55,5 @@ public class DigammaProjectLoader implements ModInitializer, EntityComponentInit
                 player.networkHandler.disconnect(Text.of("Failed loading CCScript binary, ask your server administrator."));
             }
         });
-
-
 	}
 }

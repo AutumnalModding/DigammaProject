@@ -1,6 +1,6 @@
 package gdn.hypercube.digamma.data;
 
-import gdn.hypercube.digamma.content.block.TypedBlock;
+import gdn.hypercube.digamma.content.block.DungeonBlock;
 import gdn.hypercube.solaris.core.SolarisTransformerLoader;
 import gdn.hypercube.solaris.generator.content.RegistryInitializer;
 import java.lang.reflect.Field;
@@ -28,7 +28,7 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider {
     @SuppressWarnings("unchecked")
     protected void configure(RegistryWrapper.@NonNull WrapperLookup registries) {
         RegistryInitializer.get(Block.class).contents().forEach((_, block) -> {
-            if (block instanceof TypedBlock typed && typed.type != null) {
+            if (block instanceof DungeonBlock typed && typed.type != null) {
                 List<String> possible = new ArrayList<>();
                 possible.add(switch (typed.type) {
                     case VERY_SOFT, SOFT -> null;

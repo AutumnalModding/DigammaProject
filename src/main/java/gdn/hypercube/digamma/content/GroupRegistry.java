@@ -16,8 +16,11 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 @Priority(-200)
+@SuppressWarnings("unused")
 public class GroupRegistry extends ReflectiveRegistry<ItemGroup> {
     public final ItemGroup BLOCKS = this.simple("blocks");
+    public final ItemGroup DUNGEON_BLOCKS = this.simple("blocks/dungeon");
+
     public final ItemGroup ITEMS = this.simple("items");
 
     public ItemGroup simple(String name) {

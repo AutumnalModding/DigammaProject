@@ -1,7 +1,9 @@
 package gdn.hypercube.digamma.content;
 
 import gdn.hypercube.digamma.content.item.DatapadItem;
+import gdn.hypercube.digamma.content.item.DungeonBlockItem;
 import gdn.hypercube.digamma.content.item.GenericItem;
+import gdn.hypercube.digamma.content.item.TooltippedBlockItem;
 import gdn.hypercube.solaris.generator.content.ReflectiveRegistry;
 import gdn.hypercube.solaris.generator.content.RegistryInitializer;
 import gdn.hypercube.solaris.util.ChainedList;
@@ -13,7 +15,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
@@ -54,32 +55,30 @@ public class ItemRegistry extends ReflectiveRegistry<Item> {
         Map<String, ItemGroup> groups = RegistryInitializer.get(ItemGroup.class).contents();
         ItemGroup items = groups.get("items");
         ItemGroup blocks = groups.get("blocks");
+        ItemGroup dungeons = groups.get("blocks/dungeon");
+        collect(items, this.contents, DatapadItem.class, GenericItem.class);
+        collect(blocks, this.contents, TooltippedBlockItem.class, BlockItem.class);
+        collect(dungeons, this.contents, DungeonBlockItem.class);
+        items.iconSupplier = DATAPAD::getDefaultStack;
+    }
 
-        blocks.entryCollector = (_, entries) -> {
-            this.contents.forEach((_, item) -> {
-                if (item instanceof BlockItem block) {
-                    ItemStack stack;
-                    try {
-                        stack = new ItemStack(block);
-                    } catch (Exception ignored) {
-                        stack = new ItemStack(item.asItem().getRegistryEntry(), 1, new MergedComponentMap(ComponentMap.EMPTY));
+    @SafeVarargs @SuppressWarnings("deprecation")
+    public static void collect(ItemGroup target, Map<String, ? extends Item> contents, Class<? extends Item>... valid) {
+        target.entryCollector = (_, entries) -> {
+            contents.forEach((_, item) -> {
+                for (Class<? extends Item> clazz : valid) {
+                    if (item.getClass().isAssignableFrom(clazz)) {
+                        ItemStack stack;
+                        try {
+                            stack = new ItemStack(item);
+                        } catch (Exception ignored) {
+                            stack = new ItemStack(item.asItem().getRegistryEntry(), 1, new MergedComponentMap(ComponentMap.EMPTY));
+                        }
+                        entries.add(stack);
+                        break;
                     }
-                    entries.add(stack);
                 }
-            });
-        };
-        // TODO: clean these two up to not be carbon copies...
-        items.entryCollector = (_, entries) -> {
-            this.contents.forEach((_, item) -> {
-                if (!(item instanceof BlockItem)) {
-                    ItemStack stack;
-                    try {
-                        stack = new ItemStack(item);
-                    } catch (Exception ignored) {
-                        stack = new ItemStack(item.asItem().getRegistryEntry(), 1, new MergedComponentMap(ComponentMap.EMPTY));
-                    }
-                    entries.add(stack);
-                }
+
             });
         };
     }

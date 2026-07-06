@@ -1,4 +1,4 @@
-package gdn.hypercube.digamma.patch.mixin;
+package gdn.hypercube.digamma.injection;
 
 import gdn.hypercube.digamma.delta.core.DeltaProtocolBootSequence;
 import gdn.hypercube.epsilon.core.util.Pair;

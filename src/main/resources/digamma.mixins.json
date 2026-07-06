@@ -1,6 +1,6 @@
 {
 	"required": true,
-	"package": "gdn.hypercube.digamma.patch.mixin",
+	"package": "gdn.hypercube.digamma.injection",
 	"plugin": "gdn.hypercube.solaris.core.SolarisTransformerLoader",
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [

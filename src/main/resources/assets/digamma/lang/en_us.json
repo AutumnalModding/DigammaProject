@@ -44,5 +44,11 @@
   "tooltip.artifice.upgrade.firedamp.flavour": "A thick slurry that helps reduce flammability",
   "tooltip.artifice.upgrade.elastic_layering.flavour": "Helpful in reducing explosive impacts",
   "tooltip.artifice.upgrade.scuba_tank.flavour": "Crude, but effective air tank",
-  "tooltip.artifice.upgrade.diving_kit.flavour": "Allows for clearer underwater vision"
+  "tooltip.artifice.upgrade.diving_kit.flavour": "Allows for clearer underwater vision",
+
+  "itemGroup.digamma.items": "Digamma Project (Items)",
+  "itemGroup.digamma.blocks": "Digamma Project (Blocks)",
+  "itemGroup.digamma.blocks/dungeon": "Digamma Project (Dungeon Blocks)",
+
+  "block.digamma.dungeon": "Dungeon Block: %s"
 }

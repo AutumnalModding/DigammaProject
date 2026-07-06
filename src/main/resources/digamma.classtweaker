@@ -1,7 +1,11 @@
 classTweaker  v1  named
 
 #inject-interface net/minecraft/client/sound/SoundInstance gdn/hypercube/epsilon/core/handler/spec/PlatformSoundInstance
+accessible method net/minecraft/item/ItemStack <init> (Lnet/minecraft/registry/entry/RegistryEntry;ILnet/minecraft/component/MergedComponentMap;)V
 mutable field net/minecraft/block/AbstractBlock settings Lnet/minecraft/block/AbstractBlock$Settings;
+
 accessible field net/minecraft/item/ItemGroup entryCollector Lnet/minecraft/item/ItemGroup$EntryCollector;
 mutable field net/minecraft/item/ItemGroup entryCollector Lnet/minecraft/item/ItemGroup$EntryCollector;
-accessible method net/minecraft/item/ItemStack <init> (Lnet/minecraft/registry/entry/RegistryEntry;ILnet/minecraft/component/MergedComponentMap;)V
+
+accessible field net/minecraft/item/ItemGroup iconSupplier Ljava/util/function/Supplier;
+mutable field net/minecraft/item/ItemGroup iconSupplier Ljava/util/function/Supplier;

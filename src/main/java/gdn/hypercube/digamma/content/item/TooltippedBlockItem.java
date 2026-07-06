@@ -23,4 +23,10 @@ public class TooltippedBlockItem extends BlockItem {
         super.appendTooltip(stack, context, component, consumer, type);
         this.tooltip.forEach(consumer);
     }
+
+    @Override
+    public Text getName(ItemStack stack) {
+        String original = super.getName(stack).getString();
+        return Text.translatable("block.digamma." + original.replace("item.digamma.", ""));
+    }
 }

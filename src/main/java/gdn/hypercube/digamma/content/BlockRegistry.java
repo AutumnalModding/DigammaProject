@@ -1,22 +1,17 @@
 package gdn.hypercube.digamma.content;
 
-import com.google.common.collect.Lists;
 import gdn.hypercube.digamma.content.block.GenericBlock;
-import gdn.hypercube.digamma.content.block.TypedBlock;
+import gdn.hypercube.digamma.content.block.DungeonBlock;
+import gdn.hypercube.digamma.content.item.DungeonBlockItem;
 import gdn.hypercube.digamma.content.item.TooltippedBlockItem;
 import gdn.hypercube.solaris.generator.content.DualRegistry;
 import gdn.hypercube.solaris.util.ChainedList;
 import gdn.hypercube.solaris.util.Priority;
 import gdn.hypercube.solaris.util.UsedImplicitly;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiFunction;
 import java.util.function.Supplier;
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.LoreComponent;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKey;
@@ -25,18 +20,18 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
-import static gdn.hypercube.digamma.content.block.TypedBlock.Type;
+import static gdn.hypercube.digamma.content.block.DungeonBlock.Type;
 
 @Priority(5) @UsedImplicitly
 @SuppressWarnings("CodeBlock2Expr") // p5 for after item init
 public class BlockRegistry extends DualRegistry<Block, Item> {
-
-    private Block typed(String prefix, String name, Type type) {
-        return this.create(prefix + name, () -> new TypedBlock(prefix, name, type));
-    }
-
-    private Block typed(String prefix, String name, Block parent) {
-        return this.create(prefix + name, () -> new TypedBlock(prefix, name, parent));
+    private Block dungeon(String name, Type type) {
+        Block target = new DungeonBlock("dungeon/", name, type);
+        return this.create("dungeon/" + name, () -> target, (_, _) -> {
+            return new DungeonBlockItem(target, new Item.Settings().registryKey(
+                RegistryKey.of(RegistryKeys.ITEM, Identifier.of("digamma", "dungeon/" + name))
+            ));
+        });
     }
 
     private Block tooltipped(String name, Supplier<Block> input, List<Text> tooltip) {
@@ -48,13 +43,6 @@ public class BlockRegistry extends DualRegistry<Block, Item> {
         });
     }
 
-    private Block wall(String name, Type type) {
-        return typed("generic/", name, type);
-    }
-
-    private Block tile(String name, Type type) {
-        return typed("generic/", name, type);
-    }
 
     protected BlockRegistry() {
         super("digamma", (name, block) -> {
@@ -95,65 +83,65 @@ public class BlockRegistry extends DualRegistry<Block, Item> {
     }
 
     { // TODO: We should really have some kind of system to make this better. For now though, this "works".
-        wall("abductor", Type.METAL_HARD); wall("asteroid_rock", Type.STONE); wall("bananium", Type.METAL);
-        wall("barricade", Type.WOOD); wall("brick", Type.STONE); wall("card", Type.WOOD);
-        wall("clock", Type.METAL_SOFT); wall("cobblebrick_andesite", Type.STONE); wall("cobblebrick_asteroid", Type.STONE);
-        wall("cobblebrick_basalt", Type.STONE); wall("cobblebrick_chromite", Type.STONE); wall("cobblebrick", Type.STONE);
-        wall("cobblebrick_sand", Type.STONE); wall("cobblebrick_snow", Type.STONE); wall("crystallineabyss", Type.STONE);
-        wall("cult", Type.METAL); wall("diamond", Type.METAL_SOFT); wall("drywall", Type.WOOD);
-        wall("elevator", Type.METAL); wall("gold", Type.METAL_SOFT); typed("generic/", "ice", Blocks.PACKED_ICE);
-        wall("meat", Type.WOOD); wall("metal", Type.METAL); wall("mining", Type.METAL_HARD);
-        wall("mountain_rock", Type.STONE); wall("necropolis", Type.METAL); wall("paper", Type.WOOD);
-        wall("plasma", Type.METAL); wall("plastic", Type.WOOD); wall("plastitanium", Type.METAL_HARD);
-        wall("riveted", Type.METAL); wall("rplas", Type.METAL_HARD); wall("rwall", Type.METAL);
-        wall("sandstone", Type.STONE); wall("silver", Type.METAL); wall("solid", Type.METAL);
-        wall("solid_rust", Type.METAL); wall("uranium", Type.METAL); wall("web", Type.VERY_SOFT);
-        wall("wood", Type.WOOD); wall("xenoborg", Type.METAL_HARD); wall("xeno", Type.STONE);
+        dungeon("abductor", Type.METAL_HARD); dungeon("asteroid_rock", Type.STONE); dungeon("bananium", Type.METAL);
+        dungeon("barricade", Type.WOOD); dungeon("brick", Type.STONE); dungeon("card", Type.WOOD);
+        dungeon("clock", Type.METAL_SOFT); dungeon("cobblebrick_andesite", Type.STONE); dungeon("cobblebrick_asteroid", Type.STONE);
+        dungeon("cobblebrick_basalt", Type.STONE); dungeon("cobblebrick_chromite", Type.STONE); dungeon("cobblebrick", Type.STONE);
+        dungeon("cobblebrick_sand", Type.STONE); dungeon("cobblebrick_snow", Type.STONE); dungeon("crystallineabyss", Type.STONE);
+        dungeon("cult", Type.METAL); dungeon("diamond", Type.METAL_SOFT); dungeon("drywall", Type.WOOD);
+        dungeon("elevator", Type.METAL); dungeon("gold", Type.METAL_SOFT); dungeon("ice", Type.STONE);
+        dungeon("meat", Type.WOOD); dungeon("metal", Type.METAL); dungeon("mining", Type.METAL_HARD);
+        dungeon("mountain_rock", Type.STONE); dungeon("necropolis", Type.METAL); dungeon("paper", Type.WOOD);
+        dungeon("plasma", Type.METAL); dungeon("plastic", Type.WOOD); dungeon("plastitanium", Type.METAL_HARD);
+        dungeon("riveted", Type.METAL); dungeon("rplas", Type.METAL_HARD); dungeon("rwall", Type.METAL);
+        dungeon("sandstone", Type.STONE); dungeon("silver", Type.METAL); dungeon("solid", Type.METAL);
+        dungeon("solid_rust", Type.METAL); dungeon("uranium", Type.METAL); dungeon("web", Type.VERY_SOFT);
+        dungeon("wood", Type.WOOD); dungeon("xenoborg", Type.METAL_HARD); dungeon("xeno", Type.STONE);
 
-        tile("abductor_tile", Type.METAL_HARD); tile("arcadeblue2", Type.SOFT); tile("arcadeblue", Type.SOFT);
-        tile("arcadered", Type.SOFT); tile("asphalt", Type.STONE); tile("bananiumtile", Type.METAL);
-        tile("bar", Type.STONE); tile("bedrock", Type.STONE); tile("blue_circuit", Type.STONE);
-        tile("blue", Type.STONE); tile("cafeteria", Type.WOOD); tile("carpetclown", Type.SOFT);
-        tile("carpet_deco", Type.SOFT); tile("carpetoffice", Type.SOFT); tile("checkerboard", Type.WOOD);
-        tile("checker_dark", Type.WOOD); tile("chromite", Type.STONE); tile("clockwork_floor_filled", Type.METAL_SOFT);
-        tile("clockwork_floor", Type.METAL_SOFT); tile("concrete", Type.STONE); tile("concrete_smooth", Type.STONE);
-        tile("cropped_parallax", Type.WOOD); tile("abysstile", Type.STONE); tile("dark_diagonal_mini", Type.STONE);
-        tile("dark_diagonal", Type.STONE); tile("darkgrass", Type.VERY_SOFT); tile("dark_herringbone", Type.WOOD);
-        tile("dark_marble", Type.STONE); tile("dark_mini", Type.STONE); tile("dark_offset", Type.STONE);
-        tile("dark_pavement", Type.STONE); tile("dark_pavement_vertical", Type.STONE); tile("dark", Type.STONE);
-        tile("darkstone", Type.STONE); tile("darkwood_broken", Type.WOOD); tile("darkwood_large", Type.WOOD);
-        tile("darkwood", Type.WOOD); tile("darkwood_tile", Type.WOOD); tile("eighties", Type.SOFT);
-        tile("elevator_shaft", Type.METAL); tile("exoborg", Type.METAL_HARD); tile("fancywood", Type.WOOD);
-        tile("freezer", Type.STONE); tile("goldtile", Type.METAL); tile("grassdark", Type.VERY_SOFT);
-        tile("grassjungle", Type.VERY_SOFT); tile("grasslight", Type.VERY_SOFT); tile("grass", Type.VERY_SOFT);
-        tile("grating_maint", Type.METAL); tile("grayconcrete", Type.STONE); tile("grayconcrete_smooth", Type.STONE);
-        tile("green_circuit", Type.METAL); tile("hierophant", Type.STONE); tile("hull", Type.METAL);
-        tile("hull_reinforced", Type.METAL_HARD); tile("hydro", Type.STONE); tile("kitchen", Type.STONE);
-        tile("laundry", Type.STONE); tile("light-mosaic", Type.WOOD); tile("lime", Type.STONE);
-        tile("lino", Type.STONE); tile("meattile", Type.STONE); tile("metal_dark_monke", Type.METAL);
-        tile("metaldiamond", Type.METAL_HARD); tile("metal_engie_monke", Type.METAL); tile("metal_med_monke", Type.METAL);
-        tile("metal_sci_monke", Type.METAL); tile("metal_sec_monke", Type.METAL); tile("metal_service_monke", Type.METAL);
-        tile("mining_floor_dark", Type.METAL); tile("mining_floor_light", Type.METAL); tile("mining_floor", Type.METAL);
-        tile("mono", Type.STONE); tile("oldconcrete", Type.STONE); tile("oldconcrete_smooth", Type.STONE);
-        tile("plasmarble", Type.STONE); tile("red_circuit", Type.METAL); tile("reebe", Type.METAL_SOFT);
-        tile("reinforced", Type.METAL_HARD); tile("sepia", Type.STONE); tile("showroom", Type.STONE);
-        tile("silvertile", Type.METAL); tile("steel_diagonal_mini", Type.STONE); tile("steel_diagonal", Type.STONE);
-        tile("steel_dirty", Type.STONE); tile("steel_herringbone", Type.STONE); tile("steel_maint", Type.STONE);
-        tile("steel_mini", Type.STONE); tile("steel_offset", Type.STONE); tile("steel_pavement", Type.STONE);
-        tile("steel_pavement_vertical", Type.STONE); tile("steel", Type.STONE); tile("super_reinforced", Type.METAL_HARD);
-        tile("tech_maint_dark", Type.METAL); tile("tech_maint", Type.METAL); tile("terracotta_diagonal", Type.STONE);
-        tile("terracotta", Type.STONE); tile("terracotta_small", Type.STONE); tile("uranium_marble", Type.STONE);
-        tile("versailles", Type.WOOD); tile("web_tile", Type.VERY_SOFT); tile("white_diagonal_mini", Type.STONE);
-        tile("white_diagonal", Type.STONE); tile("white_herringbone", Type.WOOD); tile("white_marble", Type.STONE);
-        tile("white_mini", Type.STONE); tile("white_offset", Type.STONE); tile("white_pavement", Type.STONE);
-        tile("white_pavement_vertical", Type.STONE); tile("white", Type.WOOD); tile("wood_black", Type.WOOD);
-        tile("wood_broken", Type.WOOD); tile("wood_chess_black", Type.WOOD); tile("wood_chess_dark", Type.WOOD);
-        tile("wood_chess_light", Type.WOOD); tile("wood_chess", Type.WOOD); tile("wood_chess_red", Type.WOOD);
-        tile("wood_dark", Type.WOOD); tile("wood_large_black", Type.WOOD); tile("wood_large_dark", Type.WOOD);
-        tile("wood_large_light", Type.WOOD); tile("wood_large", Type.WOOD); tile("wood_large_red", Type.WOOD);
-        tile("wood_light", Type.WOOD); tile("wood_parquet_black", Type.WOOD); tile("wood_parquet_dark", Type.WOOD);
-        tile("wood_parquet_light", Type.WOOD); tile("wood_parquet", Type.WOOD); tile("wood_parquet_red", Type.WOOD);
-        tile("woodtile", Type.WOOD); tile("wood_red", Type.WOOD); tile("wood_tile", Type.WOOD); tile("xeno_steel", Type.METAL);
-        tile("xeno_flooring", Type.STONE); tile("xeno_maint", Type.STONE); tile("xeno_steel_corner", Type.METAL);
+        dungeon("abductor_tile", Type.METAL_HARD); dungeon("arcadeblue2", Type.SOFT); dungeon("arcadeblue", Type.SOFT);
+        dungeon("arcadered", Type.SOFT); dungeon("asphalt", Type.STONE); dungeon("bananiumtile", Type.METAL);
+        dungeon("bar", Type.STONE); dungeon("bedrock", Type.STONE); dungeon("blue_circuit", Type.STONE);
+        dungeon("blue", Type.STONE); dungeon("cafeteria", Type.WOOD); dungeon("carpetclown", Type.SOFT);
+        dungeon("carpet_deco", Type.SOFT); dungeon("carpetoffice", Type.SOFT); dungeon("checkerboard", Type.WOOD);
+        dungeon("checker_dark", Type.WOOD); dungeon("chromite", Type.STONE); dungeon("clockwork_floor_filled", Type.METAL_SOFT);
+        dungeon("clockwork_floor", Type.METAL_SOFT); dungeon("concrete", Type.STONE); dungeon("concrete_smooth", Type.STONE);
+        dungeon("cropped_parallax", Type.WOOD); dungeon("abysstile", Type.STONE); dungeon("dark_diagonal_mini", Type.STONE);
+        dungeon("dark_diagonal", Type.STONE); dungeon("darkgrass", Type.VERY_SOFT); dungeon("dark_herringbone", Type.WOOD);
+        dungeon("dark_marble", Type.STONE); dungeon("dark_mini", Type.STONE); dungeon("dark_offset", Type.STONE);
+        dungeon("dark_pavement", Type.STONE); dungeon("dark_pavement_vertical", Type.STONE); dungeon("dark", Type.STONE);
+        dungeon("darkstone", Type.STONE); dungeon("darkwood_broken", Type.WOOD); dungeon("darkwood_large", Type.WOOD);
+        dungeon("darkwood", Type.WOOD); dungeon("darkwood_tile", Type.WOOD); dungeon("eighties", Type.SOFT);
+        dungeon("elevator_shaft", Type.METAL); dungeon("exoborg", Type.METAL_HARD); dungeon("fancywood", Type.WOOD);
+        dungeon("freezer", Type.STONE); dungeon("goldtile", Type.METAL); dungeon("grassdark", Type.VERY_SOFT);
+        dungeon("grassjungle", Type.VERY_SOFT); dungeon("grasslight", Type.VERY_SOFT); dungeon("grass", Type.VERY_SOFT);
+        dungeon("grating_maint", Type.METAL); dungeon("grayconcrete", Type.STONE); dungeon("grayconcrete_smooth", Type.STONE);
+        dungeon("green_circuit", Type.METAL); dungeon("hierophant", Type.STONE); dungeon("hull", Type.METAL);
+        dungeon("hull_reinforced", Type.METAL_HARD); dungeon("hydro", Type.STONE); dungeon("kitchen", Type.STONE);
+        dungeon("laundry", Type.STONE); dungeon("light-mosaic", Type.WOOD); dungeon("lime", Type.STONE);
+        dungeon("lino", Type.STONE); dungeon("meattile", Type.STONE); dungeon("metal_dark_monke", Type.METAL);
+        dungeon("metaldiamond", Type.METAL_HARD); dungeon("metal_engie_monke", Type.METAL); dungeon("metal_med_monke", Type.METAL);
+        dungeon("metal_sci_monke", Type.METAL); dungeon("metal_sec_monke", Type.METAL); dungeon("metal_service_monke", Type.METAL);
+        dungeon("mining_floor_dark", Type.METAL); dungeon("mining_floor_light", Type.METAL); dungeon("mining_floor", Type.METAL);
+        dungeon("mono", Type.STONE); dungeon("oldconcrete", Type.STONE); dungeon("oldconcrete_smooth", Type.STONE);
+        dungeon("plasmarble", Type.STONE); dungeon("red_circuit", Type.METAL); dungeon("reebe", Type.METAL_SOFT);
+        dungeon("reinforced", Type.METAL_HARD); dungeon("sepia", Type.STONE); dungeon("showroom", Type.STONE);
+        dungeon("silvertile", Type.METAL); dungeon("steel_diagonal_mini", Type.STONE); dungeon("steel_diagonal", Type.STONE);
+        dungeon("steel_dirty", Type.STONE); dungeon("steel_herringbone", Type.STONE); dungeon("steel_maint", Type.STONE);
+        dungeon("steel_mini", Type.STONE); dungeon("steel_offset", Type.STONE); dungeon("steel_pavement", Type.STONE);
+        dungeon("steel_pavement_vertical", Type.STONE); dungeon("steel", Type.STONE); dungeon("super_reinforced", Type.METAL_HARD);
+        dungeon("tech_maint_dark", Type.METAL); dungeon("tech_maint", Type.METAL); dungeon("terracotta_diagonal", Type.STONE);
+        dungeon("terracotta", Type.STONE); dungeon("terracotta_small", Type.STONE); dungeon("uranium_marble", Type.STONE);
+        dungeon("versailles", Type.WOOD); dungeon("web_tile", Type.VERY_SOFT); dungeon("white_diagonal_mini", Type.STONE);
+        dungeon("white_diagonal", Type.STONE); dungeon("white_herringbone", Type.WOOD); dungeon("white_marble", Type.STONE);
+        dungeon("white_mini", Type.STONE); dungeon("white_offset", Type.STONE); dungeon("white_pavement", Type.STONE);
+        dungeon("white_pavement_vertical", Type.STONE); dungeon("white", Type.WOOD); dungeon("wood_black", Type.WOOD);
+        dungeon("wood_broken", Type.WOOD); dungeon("wood_chess_black", Type.WOOD); dungeon("wood_chess_dark", Type.WOOD);
+        dungeon("wood_chess_light", Type.WOOD); dungeon("wood_chess", Type.WOOD); dungeon("wood_chess_red", Type.WOOD);
+        dungeon("wood_dark", Type.WOOD); dungeon("wood_large_black", Type.WOOD); dungeon("wood_large_dark", Type.WOOD);
+        dungeon("wood_large_light", Type.WOOD); dungeon("wood_large", Type.WOOD); dungeon("wood_large_red", Type.WOOD);
+        dungeon("wood_light", Type.WOOD); dungeon("wood_parquet_black", Type.WOOD); dungeon("wood_parquet_dark", Type.WOOD);
+        dungeon("wood_parquet_light", Type.WOOD); dungeon("wood_parquet", Type.WOOD); dungeon("wood_parquet_red", Type.WOOD);
+        dungeon("woodtile", Type.WOOD); dungeon("wood_red", Type.WOOD); dungeon("wood_tile", Type.WOOD); dungeon("xeno_steel", Type.METAL);
+        dungeon("xeno_flooring", Type.STONE); dungeon("xeno_maint", Type.STONE); dungeon("xeno_steel_corner", Type.METAL);
     }
 }
