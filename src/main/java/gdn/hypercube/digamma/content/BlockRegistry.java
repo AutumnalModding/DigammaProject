@@ -1,11 +1,14 @@
 package gdn.hypercube.digamma.content;
 
 import com.google.common.collect.Lists;
+import gdn.hypercube.digamma.content.block.GenericBlock;
 import gdn.hypercube.digamma.content.block.TypedBlock;
 import gdn.hypercube.digamma.content.item.TooltippedBlockItem;
 import gdn.hypercube.solaris.generator.content.DualRegistry;
+import gdn.hypercube.solaris.util.ChainedList;
 import gdn.hypercube.solaris.util.Priority;
 import gdn.hypercube.solaris.util.UsedImplicitly;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Supplier;
@@ -19,6 +22,7 @@ import net.minecraft.item.Item;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.Identifier;
 
 import static gdn.hypercube.digamma.content.block.TypedBlock.Type;
@@ -61,6 +65,34 @@ public class BlockRegistry extends DualRegistry<Block, Item> {
     }
 
     {
+        for (int i = 0; i <= 3; i++) {
+            for (int j = 4; j <= 7; j++) {
+                String type = switch(i) {
+                    case 0 -> "frame";
+                    case 1 -> "glass";
+                    case 2 -> "scaffold";
+                    case 3 -> "wall";
+                    default -> throw new IllegalStateException("Unexpected value: " + i);
+                };
+
+                String kind = switch (j) {
+                    case 4 -> "basic";
+                    case 5 -> "reinforced";
+                    case 6 -> "industrial";
+                    case 7 -> "advanced";
+                    default -> throw new IllegalStateException("Unexpected value: " + j);
+                };
+
+                String name = type + "_" + kind;
+                List<Text> tooltip = new ChainedList<Text>()
+                    .add(Text.literal(""))
+                    .add(Text.translatable("tooltip.artifice." + type + "." + kind))
+                    .add(Text.translatable("tooltip.artifice." + type + "." + kind + ".flavour").formatted(Formatting.DARK_GRAY).formatted(Formatting.ITALIC))
+                    .arrayify();
+
+                tooltipped("artifice/" + name, () -> new GenericBlock(Blocks.STONE, name), tooltip);
+            }
+        }
     }
 
     { // TODO: We should really have some kind of system to make this better. For now though, this "works".
@@ -122,7 +154,7 @@ public class BlockRegistry extends DualRegistry<Block, Item> {
         tile("wood_large_light", Type.WOOD); tile("wood_large", Type.WOOD); tile("wood_large_red", Type.WOOD);
         tile("wood_light", Type.WOOD); tile("wood_parquet_black", Type.WOOD); tile("wood_parquet_dark", Type.WOOD);
         tile("wood_parquet_light", Type.WOOD); tile("wood_parquet", Type.WOOD); tile("wood_parquet_red", Type.WOOD);
-        tile("woodttile", Type.WOOD); tile("wood_red", Type.WOOD); tile("wood_tile", Type.WOOD); tile("xeno_steel", Type.METAL);
+        tile("woodtile", Type.WOOD); tile("wood_red", Type.WOOD); tile("wood_tile", Type.WOOD); tile("xeno_steel", Type.METAL);
         tile("xeno_flooring", Type.STONE); tile("xeno_maint", Type.STONE); tile("xeno_steel_corner", Type.METAL);
     }
 }

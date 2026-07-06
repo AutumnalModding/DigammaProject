@@ -14,8 +14,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
 
 @UsedImplicitly
+@SuppressWarnings("CodeBlock2Expr")
 public class ItemRegistry extends ReflectiveRegistry<Item> {
     public final Item DATAPAD = this.create("datapad", DatapadItem::new);
+
     public final Item SHARPENING_KIT = this.create("upgrade/sharpening_kit", () -> new GenericItem("upgrade/sharpening_kit"));
 
     protected ItemRegistry() {

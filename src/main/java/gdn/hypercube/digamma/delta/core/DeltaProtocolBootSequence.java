@@ -79,6 +79,10 @@ public class DeltaProtocolBootSequence implements ClientModInitializer {
             }
         }));
 
+        ClientLifecycleEvents.CLIENT_STARTED.register(_ -> {
+
+        });
+
         HudElementRegistry.attachElementBefore(VanillaHudElements.CHAT, Identifier.of("digamma", "epsilon"), (context, counter) -> {
             PLATFORM.COUNTER.value = counter;
             if (DRAW_MAIN) {
