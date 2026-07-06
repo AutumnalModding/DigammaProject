@@ -7,7 +7,6 @@ import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.SimpleItemStackView;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
@@ -20,33 +19,34 @@ import java.util.Optional;
 import java.util.function.Function;
 
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-public class EnchantingSmithingRecipe extends AbstractSmithingRecipe {
+public class UpgradingRecipe extends AbstractSmithingRecipe {
 
     private static final Codec<Integer> ENCHANTMENT_LEVEL_CODEC = Codec.intRange(1, 255);
-    public static final MapCodec<EnchantingSmithingRecipe> CODEC = RecordCodecBuilder.mapCodec(
+    public static final MapCodec<UpgradingRecipe> CODEC = RecordCodecBuilder.mapCodec(
             instance -> instance.group(
                     Settings.CODEC.forGetter((recipe) -> recipe.settings),
                     Ingredient.CODEC.optionalFieldOf("template").forGetter((recipe) -> recipe.template),
                     Ingredient.CODEC.fieldOf("base").forGetter((recipe) -> recipe.base),
                     Ingredient.CODEC.optionalFieldOf("addition").forGetter((recipe) -> recipe.addition),
                     Codec.unboundedMap(Enchantment.ENTRY_CODEC, ENCHANTMENT_LEVEL_CODEC).xmap(Object2IntOpenHashMap::new, Function.identity()).fieldOf("enchantments").forGetter((recipe) -> recipe.enchantments)
-            ).apply(instance, EnchantingSmithingRecipe::new));
-    public static final PacketCodec<RegistryByteBuf, EnchantingSmithingRecipe> PACKET_CODEC = PacketCodec.tuple(
+            ).apply(instance, UpgradingRecipe::new));
+
+    public static final PacketCodec<RegistryByteBuf, UpgradingRecipe> PACKET_CODEC = PacketCodec.tuple(
             Settings.PACKET_CODEC, (recipe) -> recipe.settings,
             Ingredient.OPTIONAL_PACKET_CODEC, (recipe) -> recipe.template,
             Ingredient.PACKET_CODEC, (recipe) -> recipe.base,
             Ingredient.OPTIONAL_PACKET_CODEC, (recipe) -> recipe.addition,
             PacketCodecs.map(Object2IntOpenHashMap::new, Enchantment.ENTRY_PACKET_CODEC, PacketCodecs.VAR_INT), (recipe) -> recipe.enchantments,
-            EnchantingSmithingRecipe::new
+            UpgradingRecipe::new
     );
 
-    public static final RecipeSerializer<EnchantingSmithingRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, PACKET_CODEC);
+    public static final RecipeSerializer<UpgradingRecipe> SERIALIZER = new RecipeSerializer<>(CODEC, PACKET_CODEC);
     private final Optional<Ingredient> template;
     private final Ingredient base;
     private final Optional<Ingredient> addition;
     private final Object2IntOpenHashMap<RegistryEntry<Enchantment>> enchantments;
 
-    protected EnchantingSmithingRecipe(Settings settings, Optional<Ingredient> template, Ingredient base, Optional<Ingredient> addition, Object2IntOpenHashMap<RegistryEntry<Enchantment>> enchantments) {
+    protected UpgradingRecipe(Settings settings, Optional<Ingredient> template, Ingredient base, Optional<Ingredient> addition, Object2IntOpenHashMap<RegistryEntry<Enchantment>> enchantments) {
         super(settings);
         this.template = template;
         this.base = base;
