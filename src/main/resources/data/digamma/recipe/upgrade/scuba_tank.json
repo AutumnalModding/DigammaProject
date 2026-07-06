@@ -1,0 +1,8 @@
+{
+  "type": "digamma:upgrading",
+  "addition": "digamma:upgrade/scuba_tank",
+  "base": "#minecraft:enchantable/head_armor",
+  "enchantments": {
+    "respiration": 3
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "digamma:upgrading",
+  "addition": "digamma:upgrade/plaited_string",
+  "base": "#minecraft:enchantable/bow",
+  "enchantments": {
+    "power": 3
+  }
+}

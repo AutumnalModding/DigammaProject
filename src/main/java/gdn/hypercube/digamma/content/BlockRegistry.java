@@ -85,8 +85,7 @@ public class BlockRegistry extends DualRegistry<Block, Item> {
 
                 String name = type + "_" + kind;
                 List<Text> tooltip = new ChainedList<Text>()
-                    .add(Text.literal(""))
-                    .add(Text.translatable("tooltip.artifice." + type + "." + kind))
+                    .add(Text.translatable("tooltip.artifice." + type + "." + kind).formatted(Formatting.GRAY))
                     .add(Text.translatable("tooltip.artifice." + type + "." + kind + ".flavour").formatted(Formatting.DARK_GRAY).formatted(Formatting.ITALIC))
                     .arrayify();
 

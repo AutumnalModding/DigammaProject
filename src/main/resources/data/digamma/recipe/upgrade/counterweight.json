@@ -1,0 +1,8 @@
+{
+  "type": "digamma:upgrading",
+  "addition": "digamma:upgrade/counterweight",
+  "base": "#minecraft:enchantable/melee_weapon",
+  "enchantments": {
+    "knockback": 2
+  }
+}

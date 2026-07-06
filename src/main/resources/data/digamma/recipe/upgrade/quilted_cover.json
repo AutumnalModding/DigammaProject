@@ -1,0 +1,8 @@
+{
+  "type": "digamma:upgrading",
+  "addition": "digamma:upgrade/quilted_cover",
+  "base": "#minecraft:enchantable/armor",
+  "enchantments": {
+    "projectile_protection": 3
+  }
+}

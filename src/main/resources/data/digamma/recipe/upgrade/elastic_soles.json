@@ -1,0 +1,8 @@
+{
+  "type": "digamma:upgrading",
+  "addition": "digamma:upgrade/elastic_soles",
+  "base": "#minecraft:enchantable/foot_armor",
+  "enchantments": {
+    "feather_falling": 3
+  }
+}

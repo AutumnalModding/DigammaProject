@@ -1,0 +1,8 @@
+{
+  "type": "digamma:upgrading",
+  "addition": "digamma:upgrade/reinforced_limbs",
+  "base": "#minecraft:enchantable/bow",
+  "enchantments": {
+    "punch": 2
+  }
+}

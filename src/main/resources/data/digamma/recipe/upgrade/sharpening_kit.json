@@ -1,0 +1,8 @@
+{
+  "type": "digamma:upgrading",
+  "addition": "digamma:upgrade/sharpening_kit",
+  "base": "#minecraft:enchantable/sharp_weapon",
+  "enchantments": {
+    "sharpness": 3
+  }
+}

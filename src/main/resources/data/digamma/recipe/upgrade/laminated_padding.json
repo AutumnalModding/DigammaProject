@@ -1,0 +1,8 @@
+{
+  "type": "digamma:upgrading",
+  "addition": "digamma:upgrade/laminated_padding",
+  "base": "#minecraft:enchantable/armor",
+  "enchantments": {
+    "protection": 3
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "digamma:upgrading",
+  "addition": "digamma:upgrade/elastic_layering",
+  "base": "#minecraft:enchantable/armor",
+  "enchantments": {
+    "blast_protection": 3
+  }
+}

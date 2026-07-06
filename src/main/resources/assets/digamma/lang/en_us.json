@@ -7,8 +7,6 @@
   "tooltip.artifice.frame.industrial.flavour": "With a firm foundation...",
   "tooltip.artifice.frame.advanced": "Very strong steel frame",
   "tooltip.artifice.frame.advanced.flavour": "...anything is possible",
-  "tooltip.artifice.resistance": "Resistance:",
-  "tooltip.artifice.overhang": "Max Overhang:",
   "tooltip.artifice.glass.basic": "Reinforced Glass",
   "tooltip.artifice.glass.basic.flavour": "Strengthening glass is tricky",
   "tooltip.artifice.glass.reinforced": "Ceramic Glass",
@@ -32,5 +30,19 @@
   "tooltip.artifice.scaffold.industrial": "Construction scaffold",
   "tooltip.artifice.scaffold.industrial.flavour": "100% safe",
   "tooltip.artifice.scaffold.advanced": "Rugged scaffold",
-  "tooltip.artifice.scaffold.advanced.flavour": "Precisely machined"
+  "tooltip.artifice.scaffold.advanced.flavour": "Precisely machined",
+
+  "tooltip.artifice.upgrade.sharpening_kit.flavour": "A simple kit to sharpen blades",
+  "tooltip.artifice.upgrade.reinforcement.flavour": "The perfect materials to reinforce weak points",
+  "tooltip.artifice.upgrade.reinforced_limbs.flavour": "Allows for a stronger pull",
+  "tooltip.artifice.upgrade.plaited_string.flavour": "Improves accuracy and stability",
+  "tooltip.artifice.upgrade.counterweight.flavour": "Improves weapon balance",
+  "tooltip.artifice.upgrade.armour_spikes.flavour": "Sharp spikes deter attacks",
+  "tooltip.artifice.upgrade.laminated_padding.flavour": "Layered materials improve protection",
+  "tooltip.artifice.upgrade.quilted_cover.flavour": "Thick cloth helps block arrows",
+  "tooltip.artifice.upgrade.elastic_soles.flavour": "Slime makes the perfect shock absorber",
+  "tooltip.artifice.upgrade.firedamp.flavour": "A thick slurry that helps reduce flammability",
+  "tooltip.artifice.upgrade.elastic_layering.flavour": "Helpful in reducing explosive impacts",
+  "tooltip.artifice.upgrade.scuba_tank.flavour": "Crude, but effective air tank",
+  "tooltip.artifice.upgrade.diving_kit.flavour": "Allows for clearer underwater vision"
 }

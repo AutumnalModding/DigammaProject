@@ -1,0 +1,8 @@
+{
+  "type": "digamma:upgrading",
+  "addition": "digamma:upgrade/armour_spikes",
+  "base": "#minecraft:enchantable/armor",
+  "enchantments": {
+    "thorns": 2
+  }
+}

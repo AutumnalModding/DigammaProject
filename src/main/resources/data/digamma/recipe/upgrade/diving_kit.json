@@ -1,0 +1,8 @@
+{
+  "type": "digamma:upgrading",
+  "addition": "digamma:upgrade/diving_kit",
+  "base": "#minecraft:enchantable/head_armor",
+  "enchantments": {
+    "aqua_affinity": 1
+  }
+}

@@ -18,6 +18,7 @@ import net.minecraft.util.Identifier;
 @Priority(-200)
 public class GroupRegistry extends ReflectiveRegistry<ItemGroup> {
     public final ItemGroup BLOCKS = this.simple("blocks");
+    public final ItemGroup ITEMS = this.simple("items");
 
     public ItemGroup simple(String name) {
         return this.create(name, () -> FabricCreativeModeTab.builder().displayName(Text.translatable("itemGroup.digamma." + name)).icon(() -> new ItemStack(Blocks.STONE)).build());
