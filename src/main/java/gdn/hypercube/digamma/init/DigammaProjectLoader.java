@@ -66,5 +66,7 @@ public class DigammaProjectLoader implements ModInitializer, EntityComponentInit
                 player.networkHandler.disconnect(Text.of("Failed loading CCScript binary, ask your server administrator."));
             }
         });
+
+
 	}
 }
