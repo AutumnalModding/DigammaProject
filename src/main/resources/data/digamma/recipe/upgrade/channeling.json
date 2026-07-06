@@ -1,0 +1,8 @@
+{
+  "type": "digamma:upgrading",
+  "addition": "digamma:upgrade/conductive_filament",
+  "base": "#minecraft:enchantable/trident",
+  "enchantments": {
+    "channeling": 1
+  }
+}

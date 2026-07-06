@@ -1,0 +1,8 @@
+{
+  "type": "digamma:upgrading",
+  "addition": "digamma:upgrade/hardened_tips",
+  "base": "#minecraft:enchantable/trident",
+  "enchantments": {
+    "impaling": 3
+  }
+}

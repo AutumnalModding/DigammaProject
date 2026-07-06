@@ -3,6 +3,6 @@
   "addition": "digamma:upgrade/reinforcement",
   "base": "#minecraft:enchantable/durability",
   "enchantments": {
-    "unbreaking": 4
+    "unbreaking": 2
   }
 }

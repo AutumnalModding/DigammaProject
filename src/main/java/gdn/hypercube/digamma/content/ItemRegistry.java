@@ -39,11 +39,11 @@ public class ItemRegistry extends ReflectiveRegistry<Item> {
         }
 
         for (String upgrade : new String[]{
-            "armour_spikes", "counterweight", "diving_kit",
-            "elastic_layering", "elastic_soles", "firedamp",
-            "laminated_padding", "plaited_string", "quilted_cover",
-            "reinforced_limbs", "reinforcement", "scuba_tank",
-            "sharpening_kit"
+            "armour_spikes", "conductive_filament", "counterweight",
+            "diving_kit", "elastic_layering", "elastic_soles",
+            "firedamp", "hardened_tips", "laminated_padding",
+            "plaited_string", "quilted_cover", "reinforced_limbs",
+            "reinforcement", "scuba_tank", "sharpening_kit"
         }) {
             this.create("upgrade/" + upgrade, () -> new GenericItem(
                 "upgrade/" + upgrade,

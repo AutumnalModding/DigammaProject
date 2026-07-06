@@ -12,33 +12,18 @@ import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(ComponentRegistryImpl.class) @SuppressWarnings("UnstableApiUsage")
 public class CardinalComponentsRemapperMixin implements SolarisTransformer.Class {
-    @Override public String solaris$target() {
-        return "org/ladysnake/cca/internal/base/ComponentRegistryImpl";
-    }
-
-    @Unique @UsedImplicitly void solaris$metadata(ClassNode node) {
-        RemapperHandler.CCA(node);
-    }
+    @Unique private static final String base = "org/ladysnake/cca/internal/base/";
+    @Override public String solaris$target() {return base + "asm/ComponentRegistryImpl"; }
+    @Unique @UsedImplicitly void solaris$metadata(ClassNode node) { RemapperHandler.CCA(node); }
 
     @Mixin(CcaAsmHelper.class) public static class ASMHelper implements Class {
-        @Unique @UsedImplicitly void solaris$metadata(ClassNode node) {
-            RemapperHandler.CCA(node);
-        }
-
-        @Override
-        public String solaris$target() {
-            return "org/ladysnake/cca/internal/base/asm/CcaBootstrap";
-        }
+        @Override public String solaris$target() { return base + "asm/CcaBootstrap"; }
+        @Unique @UsedImplicitly void solaris$metadata(ClassNode node) { RemapperHandler.CCA(node); }
     }
-    @Mixin(CcaBootstrap.class) public static class Bootstrap implements Class {
-        @Unique @UsedImplicitly void solaris$metadata(ClassNode node) {
-            RemapperHandler.CCA(node);
-        }
 
-        @Override
-        public String solaris$target() {
-            return "org/ladysnake/cca/internal/base/asm/CcaAsmHelper";
-        }
+    @Mixin(CcaBootstrap.class) public static class Bootstrap implements Class {
+        @Override public String solaris$target() { return base + "asm/CcaAsmHelper"; }
+        @Unique @UsedImplicitly void solaris$metadata(ClassNode node) { RemapperHandler.CCA(node); }
     }
 }
 
