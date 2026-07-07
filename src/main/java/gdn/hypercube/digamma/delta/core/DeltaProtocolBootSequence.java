@@ -86,6 +86,8 @@ public class DeltaProtocolBootSequence implements ClientModInitializer {
             PLATFORM.COUNTER.value = counter;
             if (DRAW_MAIN) {
                 this.draw(context);
+                ENGINE.draw();
+                ENGINE.update();
             }
         });
 
@@ -99,8 +101,6 @@ public class DeltaProtocolBootSequence implements ClientModInitializer {
 
             ENGINE.drawX = ((DrawPosition) LOCATION).x + 77;
             ENGINE.drawY = ((DrawPosition) LOCATION).y + 5;
-            ENGINE.draw();
-            ENGINE.update();
         });
 
         ClientTickEvents.END_CLIENT_TICK.register(_ -> keybinds.forEach(bind -> {

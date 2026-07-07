@@ -3,7 +3,7 @@ package gdn.hypercube.digamma.init;
 import gdn.hypercube.digamma.component.PlayerEventFlagsComponent;
 import gdn.hypercube.digamma.messages.server.S00LoadEngine;
 import gdn.hypercube.digamma.messages.server.PacketHandler;
-import gdn.hypercube.digamma.util.DigammaDebugger;
+import gdn.hypercube.digamma.internal.DigammaDebugger;
 import java.io.IOException;
 import java.io.InputStream;
 import net.fabricmc.api.ModInitializer;

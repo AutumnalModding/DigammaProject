@@ -4,7 +4,7 @@ import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 public enum DeltaProtocolSound {
-    DING(Identifier.of("minecraft", "entity.player.levelup"))
+    DING(Identifier.of("minecraft", "entity.ender_dragon.death"))
     ;
 
     final Identifier ident;
