@@ -3,7 +3,7 @@ package gdn.hypercube.digamma.messages.server;
 import gdn.hypercube.digamma.delta.core.DeltaProtocolBootSequence;
 import gdn.hypercube.epsilon.core.EpsilonEngine;
 import gdn.hypercube.solaris.api.SolarisPacket;
-import gdn.hypercube.solaris.util.UsedImplicitly;
+import gdn.hypercube.solaris.data.UsedImplicitly;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;

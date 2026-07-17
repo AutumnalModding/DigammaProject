@@ -1,8 +1,8 @@
 package gdn.hypercube.digamma.data;
 
 import gdn.hypercube.digamma.content.block.DungeonBlock;
-import gdn.hypercube.solaris.core.SolarisTransformerLoader;
 import gdn.hypercube.solaris.generator.content.RegistryInitializer;
+import gdn.hypercube.solaris.util.MiscHelpers;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,7 +52,7 @@ public class BlockTags extends FabricTagsProvider.BlockTagsProvider {
                                 TagKey<Block> key = (TagKey<Block>) field.get(null);
                                 return valueLookupBuilder(key);
                             } catch (ReflectiveOperationException exception) {
-                                SolarisTransformerLoader.oopsie(DigammaDatagen.LOGGER, "FAILED ACCESSING TAG BUILDER FOR: " + tag, exception);
+                                MiscHelpers.oopsie(DigammaDatagen.LOGGER, "FAILED ACCESSING TAG BUILDER FOR: " + tag, exception);
                                 return null;
                             }
                         });

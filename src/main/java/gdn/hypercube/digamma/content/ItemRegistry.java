@@ -7,7 +7,7 @@ import gdn.hypercube.digamma.content.item.TooltippedBlockItem;
 import gdn.hypercube.solaris.generator.content.ReflectiveRegistry;
 import gdn.hypercube.solaris.generator.content.RegistryInitializer;
 import gdn.hypercube.solaris.util.ChainedList;
-import gdn.hypercube.solaris.util.UsedImplicitly;
+import gdn.hypercube.solaris.data.UsedImplicitly;
 import java.util.Map;
 import net.minecraft.component.ComponentMap;
 import net.minecraft.component.MergedComponentMap;

@@ -2,8 +2,8 @@ package gdn.hypercube.digamma.internal.injection;
 
 import gdn.hypercube.digamma.internal.RemapperHandler;
 import gdn.hypercube.solaris.api.SolarisTransformer;
-import gdn.hypercube.solaris.util.DevelopmentOnly;
-import gdn.hypercube.solaris.util.UsedImplicitly;
+import gdn.hypercube.solaris.data.DevelopmentOnly;
+import gdn.hypercube.solaris.data.UsedImplicitly;
 import org.ladysnake.cca.internal.base.ComponentRegistryImpl;
 import org.ladysnake.cca.internal.base.asm.CcaAsmHelper;
 import org.ladysnake.cca.internal.base.asm.CcaBootstrap;

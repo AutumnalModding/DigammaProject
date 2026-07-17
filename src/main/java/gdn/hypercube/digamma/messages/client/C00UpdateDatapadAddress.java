@@ -2,7 +2,7 @@ package gdn.hypercube.digamma.messages.client;
 
 import gdn.hypercube.digamma.content.item.DatapadItem;
 import gdn.hypercube.solaris.api.SolarisPacket;
-import gdn.hypercube.solaris.util.UsedImplicitly;
+import gdn.hypercube.solaris.data.UsedImplicitly;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.RegistryByteBuf;
