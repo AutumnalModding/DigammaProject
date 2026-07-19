@@ -1,11 +1,13 @@
 classTweaker  v1  named
 
 #inject-interface net/minecraft/client/sound/SoundInstance gdn/hypercube/epsilon/core/handler/spec/PlatformSoundInstance
-accessible method net/minecraft/item/ItemStack <init> (Lnet/minecraft/registry/entry/RegistryEntry;ILnet/minecraft/component/MergedComponentMap;)V
-mutable field net/minecraft/block/AbstractBlock settings Lnet/minecraft/block/AbstractBlock$Settings;
+transitive-accessible method net/minecraft/item/ItemStack <init> (Lnet/minecraft/registry/entry/RegistryEntry;ILnet/minecraft/component/MergedComponentMap;)V
+transitive-mutable field net/minecraft/block/AbstractBlock settings Lnet/minecraft/block/AbstractBlock$Settings;
 
-accessible field net/minecraft/item/ItemGroup entryCollector Lnet/minecraft/item/ItemGroup$EntryCollector;
-mutable field net/minecraft/item/ItemGroup entryCollector Lnet/minecraft/item/ItemGroup$EntryCollector;
+transitive-accessible field net/minecraft/item/ItemGroup entryCollector Lnet/minecraft/item/ItemGroup$EntryCollector;
+transitive-mutable field net/minecraft/item/ItemGroup entryCollector Lnet/minecraft/item/ItemGroup$EntryCollector;
 
-accessible field net/minecraft/item/ItemGroup iconSupplier Ljava/util/function/Supplier;
-mutable field net/minecraft/item/ItemGroup iconSupplier Ljava/util/function/Supplier;
+transitive-accessible field net/minecraft/item/ItemGroup iconSupplier Ljava/util/function/Supplier;
+transitive-mutable field net/minecraft/item/ItemGroup iconSupplier Ljava/util/function/Supplier;
+
+transitive-accessible method net/minecraft/recipe/display/SlotDisplay getSampleSmithingCombinations (Lnet/minecraft/util/context/ContextParameterMap;Lnet/minecraft/recipe/display/DisplayedItemFactory;Lnet/minecraft/recipe/display/SlotDisplay;Lnet/minecraft/recipe/display/SlotDisplay;Lnet/minecraft/util/math/random/Random;Ljava/util/function/BinaryOperator;)Ljava/util/stream/Stream;
