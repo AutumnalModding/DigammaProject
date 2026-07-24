@@ -15,7 +15,8 @@ public class FlowCommands {
         int offset = (int) argv[1].value;
         PlayerEventFlagsComponent component = DigammaProjectLoader.EVENT_FLAGS.get(DeltaProtocolBootSequence.CLIENT.player);
         boolean active = component.get((char) argv[2].value);
-        MemoryHelper.writeByteAt(engine.memory, base, offset, active ? 1 : 0);
+        System.out.println("Flag " + argv[0].value + " is " + active);
+        MemoryHelper.writeByteAt(engine, base, offset, active ? 1 : 0);
     }, new Argument(Argument.Type.BYTE), new Argument(Argument.Type.BYTE), new Argument(Argument.Type.INT));
 
     @SuppressWarnings("DataFlowIssue")

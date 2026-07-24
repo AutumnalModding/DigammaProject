@@ -1,4 +1,5 @@
 boot:
+    `debug 2`
     `image 1` ; System
     Please select an option.
     `drawoff`
@@ -14,9 +15,6 @@ boot:
     `setdi 3`
     `setda exit`
     `setdt 8 53 68 75 74 64 6f 77 6e` ; Shutdown
-    `setdi 4`
-    `setda boot`
-    `setdt 6 52 65 62 6f 6f 74` ; Reboot
     `jsr menu`
 
 menu: ; standard menu routine
@@ -47,13 +45,14 @@ callMenu:
 
 flagsDemo:
     `chkflag $ah CALLED`
-    `jumpne $rax 0 garbage`
+    `jumpne $rax 012500000000 garbage`
     `image 0` ; missingno (on purpose)
     Hello! This is M. Are you calling about-`newline`
     Wait. Who are you? How did you get this number?`newline`
-    ...Don't call again. *click*`wait`
-    `setflag CALLED 1`
+    ...Don't call again. *click*
     `playsfx 0` ; click sound
+    `wait`
+    `setflag CALLED 1`
     `image 1` ; System
     `reset`
     `jump callMenu`
@@ -63,20 +62,70 @@ garbage:
     `wait`
     `jump callMenu`
 
-soundtest:
-    TODO
-    `jump boot`
-
 info:
-    Device Info:`newline`
-        Firmware Version: `varfill 1 10`ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ`newline`
+    `reset`
+    Which option to use?
+    `setdi 0`
+    `setda filltests`
+    `setdt 4 49 6e 66 6f` ; Info
+    `setdi 1`
+    `setda enableDebug`
+    `setdt 9 44 65 62 75 67 4d 6f 64 65` ; DebugMode
+    `chkflag $ch DEBUG_MODE`
+    `jumpeq $rcx 1000000000000 debugEnabled`
+    `setdi 2`
+    `setdt 4 42 61 63 6b` ; Back
+    `setda boot`
+    `jsr menu`
 
-     `wait`
-    `jump boot`
+filltests:
+    Device Info:`newline`
+        Firmware Version: `varfill 1 10`ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
+    `wait`
+    `reset`
+    `jump info`
+
+debug:
+    `reset`
+    TODO
+    `wait`
+    `jump info`
+
+debugEnabled:
+    `setdi 2`
+    `setda boot`
+    `setdt 6 52 65 62 6f 6f 74` ; Reboot
+    `setdi 3`
+    `setda debug`
+    `setdt A 41 64 76 4f 70 74 69 6f 6e 73` ; AdvOptions
+    `setdi 4`
+    `setdt 4 42 61 63 6b` ; Back
+    `setda boot`
+    `jsr menu`
+
+enableDebug:
+    `chkflag $bh DEBUG_MODE`
+    `jumpeq $rbx 1000000000000 disableDebug`
+    Debug Mode enabled.
+    `setflag DEBUG_MODE 1`
+    `wait`
+    `jump info`
+
+disableDebug:
+    Debug Mode disabled.
+    `setflag DEBUG_MODE 0`
+    `wait`
+    `jump info`
 
 exit:
-    `jump 0`
     `halt`
+    `jump 0`
+
+soundtest:
+    `reset`
+    What track to play?
+    `wait`
+    `jump boot`
 
 dialtone:
     (No response. Just a dialtone...)

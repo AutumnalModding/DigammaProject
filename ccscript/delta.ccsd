@@ -6,4 +6,5 @@ setflag     [00 05 addr byte]
 image       [00 06 short] ; Display a portrait
 playsfx     [00 07 short]
 
-CALLED    $10000000
+CALLED      $00000001
+DEBUG_MODE  $00000002

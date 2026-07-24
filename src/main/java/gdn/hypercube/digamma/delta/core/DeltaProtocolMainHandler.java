@@ -17,6 +17,12 @@ protected static final MinecraftClient CLIENT = MinecraftClient.getInstance();
     protected final MutableReference<RenderTickCounter> COUNTER = new MutableReference<>();
 
     @Override public int framerate() { return CLIENT.getCurrentFps(); }
+
+    @Override
+    public void reset() {
+        DeltaProtocolBootSequence.DPDI.clear();
+    }
+
     @Override public int getWidth(String character) { return CLIENT.textRenderer.getWidth(character); }
     @Override public float getDynamicDeltaTicks() { return COUNTER.value == null ? 0 : COUNTER.value.getFixedDeltaTicks(); }
 
