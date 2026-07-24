@@ -2,6 +2,7 @@ package gdn.hypercube.digamma.content;
 
 import gdn.hypercube.digamma.content.block.GenericBlock;
 import gdn.hypercube.digamma.content.block.DungeonBlock;
+import gdn.hypercube.digamma.content.block.GlassBlock;
 import gdn.hypercube.digamma.content.item.DungeonBlockItem;
 import gdn.hypercube.digamma.content.item.TooltippedBlockItem;
 import gdn.hypercube.solaris.generator.content.DualRegistry;
@@ -77,7 +78,8 @@ public class BlockRegistry extends DualRegistry<Block, Item> {
                     .add(Text.translatable("tooltip.artifice." + type + "." + kind + ".flavour").formatted(Formatting.DARK_GRAY).formatted(Formatting.ITALIC))
                     .arrayify();
 
-                tooltipped("artifice/" + name, () -> new GenericBlock(Blocks.STONE, name), tooltip);
+                boolean glass = i == 1;
+                tooltipped("artifice/" + name, () -> glass ? new GlassBlock(name) : new GenericBlock(Blocks.STONE, name), tooltip);
             }
         }
     }
