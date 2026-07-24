@@ -95,13 +95,13 @@ jar {
 	}
 }
 
-tasks.register('ccscript', JavaExec) {
+tasks.register('ccscript', JavaExec) { // why the fuck does this only work every 2nd run?
 	group = 'build'
 	dependsOn gradle.includedBuild('Epsilon').task(':jar')
 
 	classpath = configurations.ccscriptRuntime
 	mainClass = 'gdn.hypercube.epsilon.cli.EpsilonCCScriptCompiler'
-	args '--output', 'src/main/resources/data/digamma/ccscript.bin'
+	args '--verbose', '--output', 'src/main/resources/data/digamma/ccscript.bin'
 }
 
 tasks.named('compileJava') {

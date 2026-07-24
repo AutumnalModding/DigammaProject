@@ -1,5 +1,7 @@
 package gdn.hypercube.digamma.delta.core;
 
+import gdn.hypercube.digamma.delta.command.DrawCommands;
+import gdn.hypercube.digamma.delta.command.FlowCommands;
 import gdn.hypercube.digamma.delta.command.MiscCommands;
 import gdn.hypercube.digamma.delta.input.DeltaProtocolInputConsumer;
 import gdn.hypercube.digamma.delta.util.DeltaProtocolDrawInfo;
@@ -17,6 +19,8 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.HudElementRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.hud.VanillaHudElements;
+import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
@@ -41,11 +45,20 @@ public class DeltaProtocolBootSequence implements ClientModInitializer {
     public static final List<Supplier<String>> VARIABLES = new ArrayList<>();
     public static final EpsilonEngine ENGINE = new EpsilonEngine(PLATFORM);
 
+    private ModContainer container;
+
     @Override
+    @SuppressWarnings("DataFlowIssue")
     public void onInitializeClient() {
+        new FlowCommands();
         new MiscCommands();
+        new DrawCommands();
+
+        this.container = FabricLoader.getInstance().getModContainer("digamma").orElseThrow();
+
         ENGINE.speed = EpsilonEngine.Speed.FAST / 4;
         VARIABLES.add(() -> CLIENT.player.getStringifiedName());
+        VARIABLES.add(() -> container.getMetadata().getVersion().getFriendlyString());
 
         keybinds.add(new DeltaProtocolInputConsumer("decision_next", GLFW.GLFW_KEY_DOWN, () -> {
             if (!DRAW_MENU) return;
@@ -67,7 +80,7 @@ public class DeltaProtocolBootSequence implements ClientModInitializer {
 
         keybinds.add(new DeltaProtocolInputConsumer("continue", GLFW.GLFW_KEY_ENTER, () -> {
             switch (ENGINE.status) {
-                case HALTED:
+//                case HALTED:
                 case PAUSED:
                 case WAITING:
                     ENGINE.status = EpsilonEngine.Status.RUNNING;

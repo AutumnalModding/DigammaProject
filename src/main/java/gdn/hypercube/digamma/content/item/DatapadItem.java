@@ -43,7 +43,10 @@ public class DatapadItem extends Item {
             if (!ACTIVATED) {
                 DeltaProtocolBootSequence.DRAW_MAIN = true;
                 DeltaProtocolBootSequence.LOCATION = DeltaProtocolBootSequence.DrawPosition.CENTER;
+                DeltaProtocolBootSequence.ENGINE.reset();
                 DeltaProtocolBootSequence.ENGINE.jump(address);
+                DeltaProtocolBootSequence.LOGGER.info("Jumping to {}", address);
+                DeltaProtocolBootSequence.ENGINE.status = EpsilonEngine.Status.RUNNING;
             } else {
                 DeltaProtocolBootSequence.DRAW_MAIN = false;
                 DeltaProtocolBootSequence.ENGINE.status = EpsilonEngine.Status.HALTED;

@@ -1,7 +1,9 @@
 drawon      [00 01] ; Enable menu draw state
 drawoff     [00 02] ; Disable the above
 varfill     [00 03 short byte]
-setflag     [00 04 short byte]
-chkflag     [00 05 addr $byte $byte] ; type abuse
+chkflag     [00 04 $byte $byte addr] ; type abuse
+setflag     [00 05 addr byte]
 image       [00 06 short] ; Display a portrait
 playsfx     [00 07 short]
+
+CALLED    $10000000
