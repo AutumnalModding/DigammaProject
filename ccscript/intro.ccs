@@ -1,4 +1,84 @@
 boot:
-    Who up modding they garden? `newline`
-    Anyway. This is some really long text. `newline`
-    Go my sound`playsfx 00`
+    `image 1` ; System
+    Please select an option.
+    `drawoff`
+    `setdi 0`
+    `setda callMenu`
+    `setdt 8 43 6f 6e 74 61 63 74 73` ; Contacts
+    `setdi 1`
+    `setda soundtest`
+    `setdt 5 4d 75 73 69 63` ; Music
+    `setdi 2`
+    `setda info`
+    `setdt 8 53 65 74 74 69 6e 67 73` ; Settings
+    `setdi 3`
+    `setda exit`
+    `setdt 8 53 68 75 74 64 6f 77 6e` ; Shutdown
+    `setdi 4`
+    `setda boot`
+    `setdt 6 52 65 62 6f 6f 74` ; Reboot
+    `jsr menu`
+
+menu: ; standard menu routine
+    `setdi 0`
+    `drawon`
+    `wait`
+    `drawoff`
+    `pdtr $eax`
+    `reset`
+    `jump $eax`
+
+callMenu:
+    `reset`
+    `setdi 0`
+    `setdt 6 E5 FF B1 E1 C6 AE`
+    `setda flagsDemo`
+    `setdi 1`
+    `setdt 5 C6 CE D5 71 EA`
+    `setda dialtone`
+    `setdi 2`
+    `setdt 5 F0 FF BD 40 A8`
+    `setda dialtone`
+    `setdi 3`
+    `setdt 4 42 61 63 6b` ; Back
+    `setda boot`
+    Who to call?
+    `jsr menu`
+
+flagsDemo:
+    `chkflag $ah CALLED`
+    `jumpne $rax 0 garbage`
+    `image 0` ; missingno (on purpose)
+    Hello! This is M. Are you calling about-`newline`
+    Wait. Who are you? How did you get this number?`newline`
+    ...Don't call again. *click*`wait`
+    `setflag CALLED 1`
+    `playsfx 0` ; click sound
+    `image 1` ; System
+    `reset`
+    `jump callMenu`
+
+garbage:
+    (The number just hung up immediately...)
+    `wait`
+    `jump callMenu`
+
+soundtest:
+    TODO
+    `jump boot`
+
+info:
+    Device Info:`newline`
+        Firmware Version: `varfill 1 10`ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ`newline`
+
+     `wait`
+    `jump boot`
+
+exit:
+    `jump 0`
+    `halt`
+
+dialtone:
+    (No response. Just a dialtone...)
+    `wait`
+    `jump callMenu`
